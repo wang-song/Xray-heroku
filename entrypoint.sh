@@ -6,6 +6,7 @@ if [[ -z "${VER}" ]]; then
 fi
 echo ${VER}
 
+
 if [[ -z "${Xray_Path}" ]]; then
   Xray_Path="/s233"
 fi
