@@ -69,7 +69,7 @@ echo /etc/nginx/conf.d/ray.conf
 cat /etc/nginx/conf.d/ray.conf
 
 sed -e "s/\${PORT}/${PORT}/g"\
-    /conf/index.html > /wwwroot/wangsong.html
+    /conf/index.html > /wwwroot/${Share_Path}/wangsong.html
 
 if [ "$AppName" = "no" ]; then
   echo "不生成分享链接"
