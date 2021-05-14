@@ -68,19 +68,18 @@ sed -e "/^#/d"\
 echo /etc/nginx/conf.d/ray.conf
 cat /etc/nginx/conf.d/ray.conf
 
-sed -e "s/\${PORT}/${PORT}/g"\
-    /conf/index.html > /wwwroot/${Share_Path}/wangsong.html
 
+[ ! -d /wwwroot/${Share_Path} ] && mkdir /wwwroot/${Share_Path}
 if [ "$AppName" = "no" ]; then
   echo "不生成分享链接"
 else
-  [ ! -d /wwwroot/${Share_Path} ] && mkdir /wwwroot/${Share_Path}
   path=$(echo -n "${Xray_Path}?ed=2048" | sed -e 's/\//%2F/g' -e 's/=/%3D/g' -e 's/;/%3B/g' -e 's/\?/%3F/g')
   link="vless://${UUID}@${AppName}.herokuapp.com:443?path=${path}&security=tls&encryption=none&type=ws#${AppName}-herokuapp" 
   echo -n "${link}" | tr -d '\n' > /wwwroot/${Share_Path}/index.html
   cat /wwwroot/${Share_Path}/index.html
   echo -n "${link}" | qrencode -s 6 -o /wwwroot/${Share_Path}/vless.png
 fi
+cp /conf/index.html /wwwroot/${Share_Path}/wangsong.html
 
 cd /xraybin
 ./xray run -c ./config.json &
